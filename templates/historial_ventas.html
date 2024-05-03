@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title%} Historial ventas {% endblock %}
+
+{% block content %}
+
+<div class="container center card-body text-center">
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">ID Venta</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Nombre cliente</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for venta in historial_ventas %}
+        <tr>
+            <td>{{venta[0]}}</td>
+            <td>{{venta[1]}}</td>
+            <td>{{venta[2]}}</td>
+            <td><a href="{{url_for('venta_factura', id=venta[0])}}" class="btn btn-outline-primary">Ver Factura</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+</div>
+
+{% endblock %}

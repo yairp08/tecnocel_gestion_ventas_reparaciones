@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Ventas {% endblock %}
+
+
+
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    {% for category, message in messages %}
+        <div class="alert {{ category }} alert-dismissible fade show">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    {% endfor %}
+{% endif %}
+{% endwith %}
+
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-md">
+              <form action="/ventas" method="post">
+
+                <div class="form-group row">
+                    <label for="Fecha" class="col-lg-3 col-form-label">Fecha de emisión:</label>
+                    <div class="col-lg-3">
+                        <input type="date" class="form-control" name="fecha" id="Fecha" min="2000-01-01" max="2024-01-01" required>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="CodigoCliente" class="col-lg-3 col-form-label">Cliente:</label>
+                    <div class="col-lg-3">
+                        <select class="form-control" name="idclientes" id="CodigoCliente">
+                            <option value="">Seleccionar cliente</option>
+                        {% for cliente in clientes %}
+                            <option value="{{cliente[0]}}">{{cliente[1]}}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="codigoProducto" class="col-lg-3 col-form-label">Producto:</label>
+                    <div class="col-lg-3 ">
+                        <select class="w-50" name="producto_id">
+                            <option value="">Seleccionar producto</option>
+                          {% for producto in productos %}
+                          <option value="{{ producto[0] }}">{{ producto[1] }}</option>
+                          {% endfor %}
+                        </select>
+                        <input type="number" class="w-20" min="1" name="cantidad" placeholder="Cantidad" required>
+                    </div>
+                </div>
+                <button type="submit" id="btnTerminarFactura" class="btn btn-success">Terminar Factura</button>
+              </form>  
+              </div>
+            </div>
+        </div>
+
+          
+          
+          {% endblock %}
+
+

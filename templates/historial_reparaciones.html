@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title%} Historial reparaciones {% endblock %}
+
+{% block content %}
+
+<div class="container center card-body text-center">
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">ID Reparacion</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Nombre cliente</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for reparacion in historial_reparaciones %}
+        <tr>
+            <td>{{reparacion[0]}}</td>
+            <td>{{reparacion[1]}}</td>
+            <td>{{reparacion[2]}}</td>
+            <td><a href="{{url_for('reparacion_factura', id=reparacion[0])}}" class="btn btn-outline-primary">Ver Factura</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,75 @@
+CREATE DATABASE tecnocell1;
+
+USE tecnocell1;
+
+CREATE TABLE clientes (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  nombre text NOT NULL,
+  direccion text DEFAULT NULL,
+  telefono text DEFAULT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE productos (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  nombre text NOT NULL,
+  descripcion text DEFAULT NULL,
+  precio_unitario double NOT NULL,
+  stock int(11) NOT NULL,
+  activo tinyint(1) DEFAULT 1,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE repuestos (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  nombre text NOT NULL,
+  descripcion text DEFAULT NULL,
+  precio_unitario double NOT NULL,
+  stock int(11) NOT NULL,
+  activo tinyint(1) DEFAULT 1,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE usuario (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  username varchar(255) NOT NULL,
+  password varchar(255) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE ventas (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  fecha date NOT NULL,
+  cliente_id int(11) DEFAULT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (cliente_id) REFERENCES clientes (id)
+);
+
+CREATE TABLE reparaciones (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  fecha date NOT NULL,
+  cliente_id int(11) NOT NULL,
+  descripcion text NOT NULL,
+  costo_labor double NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (cliente_id) REFERENCES clientes (id)
+);
+
+CREATE TABLE detalle_reparacion (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  reparacion_id int(11) NOT NULL,
+  repuesto_id int(11) NOT NULL,
+  cantidad int(11) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (reparacion_id) REFERENCES reparaciones (id),
+  FOREIGN KEY (repuesto_id) REFERENCES repuestos (id)
+);
+
+CREATE TABLE detalle_venta (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    venta_id INT,
+    producto_id INT,
+    cantidad INT,
+    FOREIGN KEY (venta_id) REFERENCES ventas(id),
+    FOREIGN KEY (producto_id) REFERENCES productos(id)
+);

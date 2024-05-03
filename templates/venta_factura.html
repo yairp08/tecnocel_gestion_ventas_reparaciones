@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %} Factura ventas {% endblock %}
+
+{% block navbar %}
+{% endblock %}
+
+{% block content %}
+    <div class="container w-100 mt-4">
+          <div class="border p-1 border-dark text-center">
+              <h2>Nº{{ venta_info[0] }}</h2>
+              <span>Fecha: {{ venta_info[1]}}</span>
+          </div>
+          <div class="border p-1 border-dark mt-4">
+              <h3>Cliente:</h3>
+              <ul>
+                  <li>Nombre: {{ venta_info[2] }}</li>
+                  <li>Direccion: {{ venta_info[3] }}</li>
+                  <li>Telefono: {{ venta_info[4] }}</li>
+              </ul>
+          </div>
+        <table class="table border border-dark mt-4">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Descripción</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Subtotal</th>
+                    <th>Impuestos(IVA)</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for detalle in detalles_venta %}
+                    <tr>
+                        <td>{{ detalle[0] }}</td>
+                        <td>{{ detalle[1] }}</td>
+                        <td name="cantidadproducto">{{ detalle[2] }}</td>
+                        <td>{{ detalle[3] }}</td>
+                        <td>{{ detalle[4] }}</td>
+                        <td>{{ detalle[4]*0.21 }}</td>
+                        <td>{{ detalle[4]*0.21 + detalle[4] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}
